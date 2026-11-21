@@ -4,17 +4,10 @@ Captured 2026-11-21 on macOS (Intel), zizmor 1.32.0, Ray 2.49.2. Use these if Wi
 
 ## Demo 1: paste vs variable
 ```
-$ export BRANCH='$(echo PWNED)'
-$ echo "echo Building $BRANCH" > ci.sh
-$ cat ci.sh
-echo Building $(echo PWNED)
-$ bash ci.sh
+$ BRANCH='$(echo PWNED)'
+$ bash -c "echo Building $BRANCH"
 Building PWNED
-
-$ echo 'echo "Building $BRANCH"' > ci.sh
-$ cat ci.sh
-echo "Building $BRANCH"
-$ bash ci.sh
+$ echo "Building $BRANCH"
 Building $(echo PWNED)
 ```
 

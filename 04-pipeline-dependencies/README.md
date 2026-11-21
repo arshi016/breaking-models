@@ -11,12 +11,11 @@ Expected output for every demo, as text for backup slides: [`BACKUP.md`](BACKUP.
 ---
 
 ## Demo 1: paste vs variable
-Typed by hand. Steps: [`01-paste-vs-variable/README.md`](01-paste-vs-variable/README.md)
 ```
-$ export BRANCH='$(echo PWNED)'
-$ echo "echo Building $BRANCH" > ci.sh && bash ci.sh
+$ BRANCH='$(echo PWNED)'
+$ bash -c "echo Building $BRANCH"
 Building PWNED
-$ echo 'echo "Building $BRANCH"' > ci.sh && bash ci.sh
+$ echo "Building $BRANCH"
 Building $(echo PWNED)
 ```
 **Say:** `${{ }}` pastes the branch name into the script, so it runs. `env:` passes it as a variable, so it prints.
