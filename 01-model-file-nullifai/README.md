@@ -35,4 +35,3 @@ Infected files: 1
 ```
 On PyTorch 2.6+ the error says `Trying to load unsupported GLOBAL posix.system`. Same meaning. Intel Macs can only install torch 2.2.2.
 
-**What to say:** Just loading the file ran a command. The broken file failed to load, but the command had already run.

@@ -8,4 +8,3 @@ bash -c "echo Building $BRANCH"     # like ${{ }}   -> Building PWNED
 echo "Building $BRANCH"             # like env:     -> Building $(echo PWNED)
 ```
 
-**Say:** Pasted, it runs. Variable, it prints.

@@ -18,7 +18,6 @@ Building PWNED
 $ echo "Building $BRANCH"
 Building $(echo PWNED)
 ```
-**Say:** `${{ }}` pastes the branch name into the script, so it runs. `env:` passes it as a variable, so it prints.
 
 ---
 
@@ -38,8 +37,6 @@ $ zizmor --offline fixed-repo
 No findings to report. Good job! (2 suppressed)
 ```
 The fixed version uses `on: pull_request`, `permissions: {}`, and `env: BRANCH`. The "2 suppressed" are style tips that zizmor hides by default (no job `name:`, no `concurrency:`). They are not security bugs.
-
-**Say:** Both Ultralytics bugs, one free command. Run it on your own repos.
 
 ---
 
@@ -61,8 +58,6 @@ On Ray 2.59+ you also see `WARNING ... Token authentication is disabled ...`.
 - If you have `~/.ray/auth_token` or `RAY_AUTH_TOKEN`, newer Ray refuses the job. Run `RAY_AUTH_MODE=disabled ./run.sh` (affects this one command only).
 - `./fix.sh` (optional, Ray 2.52+ only) turns token auth on, with the token in this folder (`RAY_AUTH_TOKEN_PATH`), not your home dir. The same job gets refused, then works with the token.
 
-**Say:** No password. Now imagine this on a public IP.
-
 ---
 
 ## Demo 4: check your own Ollama
@@ -79,4 +74,3 @@ llama3.1:8b
 Linux: `ss -ltnp | grep 11434`. The commands for the audience are in [`audience-commands.txt`](04-check-your-ollama/audience-commands.txt).
 For an "exposed" (`*:11434`) screenshot, see [`make-screenshot-at-home.md`](04-check-your-ollama/make-screenshot-at-home.md). Never do that on conference Wi-Fi.
 
-**Say:** `127.0.0.1` means only you can reach it. `*` means anyone on the same network can, and there's no login.
