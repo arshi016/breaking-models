@@ -12,12 +12,6 @@ Everything here is **safe to run on your own laptop**:
 | [`01-model-file-nullifai/`](01-model-file-nullifai/) | #1 Model file | Loading a `.pt` model runs a command. A broken pickle fools scanners (nullifAI). |
 | [`04-pipeline-dependencies/`](04-pipeline-dependencies/) | #4 Pipeline & dependencies | GitHub Actions injection (Ultralytics), zizmor, Ray with no login (ShadowRay), check your Ollama. |
 
-## How to run any demo
-```
-git clone https://github.com/arshi016/breaking-models.git
-cd breaking-models/<folder>/<demo>
-./setup.sh     # only if the folder has one: installs tools once
-./run.sh       # step by step, press Enter to go on
-./reset.sh     # back to a clean state
-```
-Needs macOS or Linux, bash, and Python 3.10 to 3.12 for the Python demos.
+## How to run
+Each demo folder has a `README.md` with the commands to type, and a `PREREQUISITES.md` with what to install once.
+Needs macOS or Linux and Python 3.10 to 3.12.
