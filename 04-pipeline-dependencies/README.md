@@ -6,7 +6,7 @@ Four short demos. Localhost only, harmless payloads.
 ./00-preflight.sh     # the morning of the talk: PASS / FAIL per demo
 ./cleanup-all.sh      # stop everything (Ray) and reset every demo
 ```
-Expected output for every demo, as text for backup slides: [`BACKUP.md`](BACKUP.md).
+Install once: [`SETUP.md`](SETUP.md). Expected output for every demo, as text for backup slides: [`BACKUP.md`](BACKUP.md).
 
 ---
 
