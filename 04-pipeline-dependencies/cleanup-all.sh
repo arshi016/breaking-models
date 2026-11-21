@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# Stop anything left running (Ray) and reset every demo.
+# Stop anything left running (Ray) and reset the demos.
 cd "$(dirname "$0")"
-for d in 0*/; do [ -x "$d/reset.sh" ] && "$d/reset.sh"; done
+03-ray-no-login/.venv/bin/ray stop --force >/dev/null 2>&1 && echo "Ray stopped."
+../01-model-file-nullifai/reset.sh

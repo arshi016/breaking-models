@@ -39,22 +39,18 @@ The fixed version uses `on: pull_request`, `permissions: {}`, and `env: BRANCH`.
 ---
 
 ## Demo 3: Ray with no login (ShadowRay, CVE-2023-48022)
+Typed by hand. Steps: [`03-ray-no-login/README.md`](03-ray-no-login/README.md)
 ```
-cd 03-ray-no-login && ./setup.sh && ./run.sh
-./reset.sh            # stops Ray
-```
-```
-$ ray start --head --dashboard-host 127.0.0.1 --disable-usage-stats
+$ ray start --head --node-ip-address 127.0.0.1 --dashboard-host 127.0.0.1 --disable-usage-stats
+...
 Ray runtime started.
+...
 $ ray job submit --address http://127.0.0.1:8265 -- whoami
+...
 warmearthling
 Job 'raysubmit_kaekQjMsCR5huLU7' succeeded
 ```
-On Ray 2.59+ you also see `WARNING ... Token authentication is disabled ...`.
-
-- The script also adds `--node-ip-address 127.0.0.1`, so every Ray port stays on localhost.
-- If you have `~/.ray/auth_token` or `RAY_AUTH_TOKEN`, newer Ray refuses the job. Run `RAY_AUTH_MODE=disabled ./run.sh` (affects this one command only).
-- `./fix.sh` (optional, Ray 2.52+ only) turns token auth on, with the token in this folder (`RAY_AUTH_TOKEN_PATH`), not your home dir. The same job gets refused, then works with the token.
+On Ray 2.59+ `ray start` also prints a WARNING that token authentication is disabled.
 
 ---
 
