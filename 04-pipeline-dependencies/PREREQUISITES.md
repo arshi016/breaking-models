@@ -1,4 +1,4 @@
-# Setup (once, before running the demos)
+# Prerequisites (install once)
 
 ```
 cd 02-zizmor-scan  && python3 -m venv .venv && .venv/bin/pip install zizmor
