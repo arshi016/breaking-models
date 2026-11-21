@@ -1,0 +1,85 @@
+# #4 Pipeline & dependencies
+
+Four short demos. Localhost only, harmless payloads.
+
+```
+./00-preflight.sh     # the morning of the talk: PASS / FAIL per demo
+./cleanup-all.sh      # stop everything (Ray) and reset every demo
+```
+Expected output for every demo, as text for backup slides: [`BACKUP.md`](BACKUP.md).
+
+---
+
+## Demo 1: paste vs variable
+```
+cd 01-paste-vs-variable && ./run.sh
+```
+```
+$ BRANCH='$(echo PWNED)'
+$ eval "echo Building $BRANCH"
+Building PWNED
+$ echo "Building $BRANCH"
+Building $(echo PWNED)
+```
+**Say:** `${{ }}` pastes the branch name into the script, so it runs as code. `env:` passes it as a variable, so it only prints.
+
+---
+
+## Demo 2: zizmor scan
+```
+cd 02-zizmor-scan && ./setup.sh && ./run.sh
+```
+```
+$ zizmor --offline vulnerable-repo
+error[dangerous-triggers]: use of fundamentally insecure workflow trigger
+ --> vulnerable-repo/.github/workflows/format.yml:2:1
+error[template-injection]: code injection via template expansion
+ --> vulnerable-repo/.github/workflows/format.yml:9:33
+6 findings (4 suppressed, 1 unsafe fixes): 0 informational, 0 low, 0 medium, 2 high
+
+$ zizmor --offline fixed-repo
+No findings to report. Good job! (2 suppressed)
+```
+The fixed version uses `on: pull_request`, `permissions: {}`, and `env: BRANCH`. The "2 suppressed" are style tips that zizmor hides by default (no job `name:`, no `concurrency:`). They are not security bugs.
+
+**Say:** Both Ultralytics bugs, one free command. Run it on your own repos.
+
+---
+
+## Demo 3: Ray with no login (ShadowRay, CVE-2023-48022)
+```
+cd 03-ray-no-login && ./setup.sh && ./run.sh
+./reset.sh            # stops Ray
+```
+```
+$ ray start --head --dashboard-host 127.0.0.1 --disable-usage-stats
+Ray runtime started.
+$ ray job submit --address http://127.0.0.1:8265 -- whoami
+warmearthling
+Job 'raysubmit_kaekQjMsCR5huLU7' succeeded
+```
+On Ray 2.59+ you also see `WARNING ... Token authentication is disabled ...`.
+
+- The script also adds `--node-ip-address 127.0.0.1`, so every Ray port stays on localhost.
+- If you have `~/.ray/auth_token` or `RAY_AUTH_TOKEN`, newer Ray refuses the job. Run `RAY_AUTH_MODE=disabled ./run.sh` (affects this one command only).
+- `./fix.sh` (optional, Ray 2.52+ only) turns token auth on, with the token in this folder (`RAY_AUTH_TOKEN_PATH`), not your home dir. The same job gets refused, then works with the token.
+
+**Say:** No password. Now imagine this on a public IP.
+
+---
+
+## Demo 4: check your own Ollama
+```
+cd 04-check-your-ollama && ./run.sh
+```
+```
+OLLAMA_HOST = not set (default: 127.0.0.1)
+$ lsof -nP -iTCP:11434 -sTCP:LISTEN
+ollama  34365 you  4u  IPv4 ...  TCP 127.0.0.1:11434 (LISTEN)
+$ curl -s http://localhost:11434/api/tags | jq -r '.models[].name'
+llama3.1:8b
+```
+Linux: `ss -ltnp | grep 11434`. The commands for the audience are in [`audience-commands.txt`](04-check-your-ollama/audience-commands.txt).
+For an "exposed" (`*:11434`) screenshot, see [`make-screenshot-at-home.md`](04-check-your-ollama/make-screenshot-at-home.md). Never do that on conference Wi-Fi.
+
+**Say:** `127.0.0.1` means only you can reach it. `*` means anyone on the same network can, and there's no login.

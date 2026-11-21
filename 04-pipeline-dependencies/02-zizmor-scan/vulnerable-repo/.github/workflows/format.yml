@@ -1,0 +1,9 @@
+name: format
+on: pull_request_target
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Building ${{ github.head_ref }}"

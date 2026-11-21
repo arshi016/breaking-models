@@ -1,0 +1,17 @@
+CHECK YOUR OWN LAPTOP
+
+1) Who can reach Ollama?
+
+   lsof -nP -iTCP:11434 -sTCP:LISTEN
+
+   (Linux:  ss -ltnp | grep 11434)
+
+   127.0.0.1:11434   = only you
+   *:11434           = every network door
+
+
+2) Does it ask for a password?
+
+   curl http://localhost:11434/api/tags
+
+   Models listed = no login.

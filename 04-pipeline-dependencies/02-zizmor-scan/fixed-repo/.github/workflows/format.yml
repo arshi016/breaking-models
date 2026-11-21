@@ -1,0 +1,10 @@
+name: format
+on: pull_request
+permissions: {}
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          BRANCH: ${{ github.head_ref }}
+        run: echo "Building $BRANCH"
