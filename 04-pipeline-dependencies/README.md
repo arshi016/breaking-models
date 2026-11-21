@@ -55,9 +55,7 @@ On Ray 2.59+ `ray start` also prints a WARNING that token authentication is disa
 ---
 
 ## Demo 4: check your own Ollama
-```
-cd 04-check-your-ollama && ./run.sh
-```
+Typed by hand. Steps: [`04-check-your-ollama/README.md`](04-check-your-ollama/README.md)
 ```
 OLLAMA_HOST = not set (default: 127.0.0.1)
 $ lsof -nP -iTCP:11434 -sTCP:LISTEN
