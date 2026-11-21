@@ -4,23 +4,18 @@ Captured 2026-11-21 on macOS (Intel), zizmor 1.32.0, Ray 2.49.2. Use these if Wi
 
 ## Demo 1: paste vs variable
 ```
-# An attacker names their branch:
-
-$ BRANCH='$(echo PWNED)'
-# Pasted into the script, like ${{ github.head_ref }}:
-
-$ eval "echo Building $BRANCH"
+$ export BRANCH='$(echo PWNED)'
+$ echo "echo Building $BRANCH" > ci.sh
+$ cat ci.sh
+echo Building $(echo PWNED)
+$ bash ci.sh
 Building PWNED
-# Passed as a variable, like env: BRANCH:
 
-$ echo "Building $BRANCH"
+$ echo 'echo "Building $BRANCH"' > ci.sh
+$ cat ci.sh
+echo "Building $BRANCH"
+$ bash ci.sh
 Building $(echo PWNED)
-# Bonus: it runs as YOU.
-
-$ BRANCH='$(whoami)'
-
-$ eval "echo Building $BRANCH"
-Building warmearthling
 ```
 
 ## Demo 2: zizmor scan
