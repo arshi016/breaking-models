@@ -13,5 +13,5 @@ Everything here is **safe to run on your own laptop**:
 | [`04-pipeline-dependencies/`](04-pipeline-dependencies/) | #4 Pipeline & dependencies | GitHub Actions injection (Ultralytics), zizmor, Ray with no login (ShadowRay), check your Ollama. |
 
 ## How to run
-Each demo folder has a `README.md` with the commands to type, and a `PREREQUISITES.md` with what to install once.
+Each section folder has a `PREREQUISITES.md` (install once). Each demo has a `README.md` with the commands to type.
 Needs macOS or Linux and Python 3.10 to 3.12.
