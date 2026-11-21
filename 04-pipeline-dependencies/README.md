@@ -22,9 +22,7 @@ Building $(echo PWNED)
 ---
 
 ## Demo 2: zizmor scan
-```
-cd 02-zizmor-scan && ./setup.sh && ./run.sh
-```
+Typed by hand. Steps: [`02-zizmor-scan/README.md`](02-zizmor-scan/README.md)
 ```
 $ zizmor --offline vulnerable-repo
 error[dangerous-triggers]: use of fundamentally insecure workflow trigger
