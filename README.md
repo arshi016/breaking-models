@@ -4,7 +4,7 @@ Hands-on labs from my **"Breaking Models"** talks on AI security. One folder per
 
 | Topic | What it covers |
 |---|---|
-| [`ai-supply-chain-attacks`](ai-supply-chain-attacks/) | Poisoned model files, CI pipeline injection, exposed Ray, a malicious MCP server |
+| [`ai-supply-chain-attacks`](ai-supply-chain-attacks/) | Poisoned model files, CI pipeline injection, exposed Ray, malicious MCP servers |
 
-All labs run on localhost with harmless payloads (`echo PWNED`, `whoami`).
+All labs run on localhost with harmless payloads (`echo PWNED`, `whoami`, a fake key).
 Read the code before you run it. Each lab is only a few lines.

@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "calculator": { "command": ".venv/bin/python", "args": ["server.py"] }
+  }
+}

@@ -5,3 +5,4 @@ __pycache__/
 # made by the labs
 model.pt
 evil.pkl
+stolen.txt
