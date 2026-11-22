@@ -49,7 +49,7 @@ No findings to report. Good job! (2 suppressed)
 
 ## 04 dependency confusion
 ```
-$ pip install --no-index --find-links real-index --find-links fake-index torchtriton
+$ pip install torchtriton
 Looking in links: real-index, fake-index
 Processing ./fake-index/torchtriton-3.0.0-py3-none-any.whl
 Successfully installed torchtriton-3.0.0
@@ -57,7 +57,7 @@ Successfully installed torchtriton-3.0.0
 $ python -c "import torchtriton"
 FAKE torchtriton 3.0.0 just ran on import. The real attack stole your SSH keys here.
 
-$ pip install --no-index --find-links real-index --find-links fake-index --require-hashes -r requirements.txt
+$ pip install -r requirements.txt
 Processing ./real-index/torchtriton-2.0.0-py3-none-any.whl (from -r requirements.txt (line 1))
 Successfully installed torchtriton-2.0.0
 ```

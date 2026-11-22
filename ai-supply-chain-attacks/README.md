@@ -17,7 +17,7 @@ Each lab's `README.md` has the commands to type.
 ```
 01-nullifai:                 python3.12 -m venv .venv && .venv/bin/pip install torch "numpy<2" picklescan==1.0.5
 03-zizmor-scan:              python3 -m venv .venv && .venv/bin/pip install zizmor
-04-dependency-confusion:     python3 -m venv .venv
+04-dependency-confusion:     python3 -m venv .venv && cp pip.conf .venv/
 05-ray-no-login:             python3.12 -m venv .venv && .venv/bin/pip install "ray[default]==2.60.0"
 08-tool-poisoning:           python3.12 -m venv .venv && .venv/bin/pip install mcp
 ```
