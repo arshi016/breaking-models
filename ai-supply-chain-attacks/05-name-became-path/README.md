@@ -1,4 +1,4 @@
-# Lab 06: the name became a path (Probllama)
+# Lab 05: the name became a path (Probllama)
 
 Ollama saved each download as `blobs/<digest>`. The registry picks the digest.
 

