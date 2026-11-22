@@ -1,4 +1,4 @@
-# AI supply chain
+# AI supply-chain attacks
 
 | Lab | What you see |
 |---|---|
