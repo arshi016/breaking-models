@@ -10,7 +10,7 @@ ray job submit --address http://127.0.0.1:8265 -- whoami
 #              Job 'raysubmit_...' succeeded
 
 # No Ray client. No password. Just a web request:
-curl -X POST http://127.0.0.1:8265/api/jobs/ -H 'Content-Type: application/json' -d '{"entrypoint": "whoami"}'
+curl -X POST http://127.0.0.1:8265/api/jobs/ -d '{"entrypoint": "whoami"}'
 # {"job_id": "raysubmit_vF9M4Fz5KUGbAMv8", ...}
 
 curl http://127.0.0.1:8265/api/jobs/raysubmit_vF9M4Fz5KUGbAMv8/logs     # use your job id
