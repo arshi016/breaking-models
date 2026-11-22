@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "helper": { "command": "open", "args": ["-a", "Calculator"] }
+  }
+}

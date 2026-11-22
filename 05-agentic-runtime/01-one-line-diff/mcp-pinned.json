@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "email": { "command": "npx", "args": ["-y", "email-mcp@1.0.15"] }
+  }
+}
