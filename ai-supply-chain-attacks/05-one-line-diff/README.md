@@ -1,4 +1,4 @@
-# Lab 06: the one-line diff (postmark-mcp)
+# Lab 05: the one-line diff (postmark-mcp)
 
 ```
 diff email-mcp-1.0.15.js email-mcp-1.0.16.js    # the whole attack is one line
