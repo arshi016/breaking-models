@@ -1,4 +1,4 @@
-# Demo 3: Ray with no login (ShadowRay, CVE-2023-48022)
+# Lab 05: Ray with no login (ShadowRay, CVE-2023-48022)
 
 ```
 source .venv/bin/activate

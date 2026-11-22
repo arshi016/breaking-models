@@ -1,4 +1,4 @@
-# Lab 2: tool poisoning ("Adds two numbers")
+# Lab 08: tool poisoning ("Adds two numbers")
 
 ```
 cat fake_id_rsa       # a fake key

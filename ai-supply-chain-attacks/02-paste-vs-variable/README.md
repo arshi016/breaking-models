@@ -1,4 +1,4 @@
-# Demo 1: paste vs variable
+# Lab 02: paste vs variable (Ultralytics)
 
 Type these 3 lines.
 

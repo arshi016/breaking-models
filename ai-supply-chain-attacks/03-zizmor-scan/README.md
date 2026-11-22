@@ -1,4 +1,4 @@
-# Demo 2: zizmor scan
+# Lab 03: zizmor scan (Ultralytics)
 
 ```
 source .venv/bin/activate

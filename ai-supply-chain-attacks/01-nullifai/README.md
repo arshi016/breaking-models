@@ -1,4 +1,4 @@
-# #1 Model file: pickle and nullifAI
+# Lab 01: model file runs code (pickle, nullifAI)
 
 ```
 source .venv/bin/activate
