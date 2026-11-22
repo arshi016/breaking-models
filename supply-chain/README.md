@@ -1,4 +1,4 @@
-# Session 01: AI supply chain
+# AI supply chain
 
 | Lab | What you see |
 |---|---|
