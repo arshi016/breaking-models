@@ -1,4 +1,4 @@
-# Lab 4: count your unpinned MCP servers
+# Lab 3: count your unpinned MCP servers
 
 ```
 grep '"-y"' ~/.cursor/mcp.json

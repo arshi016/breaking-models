@@ -11,7 +11,7 @@ Everything here is **safe to run on your own laptop**:
 |---|---|---|
 | [`01-model-file-nullifai/`](01-model-file-nullifai/) | #1 Model file | Loading a `.pt` model runs a command. A broken pickle fools scanners (nullifAI). |
 | [`04-pipeline-dependencies/`](04-pipeline-dependencies/) | #4 Pipeline & dependencies | GitHub Actions injection (Ultralytics), zizmor, Ray with no login (ShadowRay), check your Ollama. |
-| [`05-agentic-runtime/`](05-agentic-runtime/) | #5 Agentic runtime | postmark-mcp one-line diff, tool poisoning, nx --yolo, unpinned MCP servers. |
+| [`05-agentic-runtime/`](05-agentic-runtime/) | #5 Agentic runtime | postmark-mcp one-line diff, tool poisoning, unpinned MCP servers. |
 
 ## How to run
 Each section folder has a `PREREQUISITES.md` (install once). Each demo has a `README.md` with the commands to type.
