@@ -8,6 +8,7 @@
 | [`04-ray-no-login`](04-ray-no-login/) | Ray runs any command, no password (ShadowRay) |
 | [`05-one-line-diff`](05-one-line-diff/) | postmark-mcp: the whole attack is one line |
 | [`06-tool-poisoning`](06-tool-poisoning/) | "Adds two numbers" + a hidden `<IMPORTANT>` block |
+| [`07-threat-model`](07-threat-model/) | Group exercise: find 6 holes in a support bot, pick the 3 to fix first |
 
 Each lab's `README.md` has the commands to type.
 
