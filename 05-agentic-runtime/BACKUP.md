@@ -23,7 +23,7 @@ cat: stolen.txt: No such file or directory
 ```
 Claude Code refused both test runs (Nov 2026).
 
-## Lab 4: hands up, yolo
+## Lab 3: hands up, yolo
 ```
 $ grep -cE "yolo|dangerously-skip-permissions|trust-all-tools" ~/.zsh_history
 0

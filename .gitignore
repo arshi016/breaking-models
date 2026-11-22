@@ -6,5 +6,4 @@ __pycache__/
 01-model-file-nullifai/model.pt
 01-model-file-nullifai/evil.pkl
 .tmp-token
-05-agentic-runtime/03-mcpoison/demo-repo/
 05-agentic-runtime/02-tool-poisoning/stolen.txt

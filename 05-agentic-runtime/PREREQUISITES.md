@@ -4,4 +4,3 @@
 cd 02-tool-poisoning && python3.12 -m venv .venv && .venv/bin/pip install --prefer-binary mcp
 ```
 - Lab 2: Claude Code, logged in.
-- Lab 3 is a home recording only: needs Cursor older than 1.3.

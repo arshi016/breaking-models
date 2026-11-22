@@ -1,4 +1,4 @@
-# Lab 4: hands up, yolo (nx s1ngularity)
+# Lab 3: hands up, yolo (nx s1ngularity)
 
 ```
 grep -cE "yolo|dangerously-skip-permissions|trust-all-tools" ~/.zsh_history
