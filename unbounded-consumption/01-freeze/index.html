@@ -126,14 +126,32 @@ footer{margin-top:20px;font-size:14px;color:var(--muted)}
   document.querySelectorAll('[data-brand]').forEach((el) => { el.textContent = BRAND; });
   document.title = BRAND + ' Prompt Filter';
 
-  // Default: 27 letters + "!" (28 characters). Override with ?n=28 or #n28.
-  let letters = 27;
+  // Default: as many letters as makes THIS device freeze for about TARGET_MS.
+  // Fast phones and slow laptops differ by 10x, and each letter doubles the time,
+  // so one fixed length freezes some phones for 0.5 s and others for a minute.
+  // Override with ?n=28 or #n28.
+  const TARGET_MS = 4000;
+  const calibrate = () => {
+    try {
+      OLD.test('a'.repeat(16) + '!');                       // warm up the regex engine
+      let best = Infinity;
+      for (let i = 0; i < 2; i++) {
+        const t0 = performance.now();
+        OLD.test('a'.repeat(22) + '!');                     // 2^21 tries: ~10-100 ms
+        best = Math.min(best, performance.now() - t0);
+      }
+      if (!(best > 0.5)) return 27;                         // timer too coarse: old default
+      return Math.min(MAX - 1, Math.max(24, 22 + Math.round(Math.log2(TARGET_MS / best))));
+    } catch (e) { return 27; }
+  };
+  let letters = 0;
   try {
     const fromQuery = new URLSearchParams(location.search).get('n');
     const fromHash = (location.hash.match(/^#n(\d+)$/) || [])[1];
     const pick = fromHash || fromQuery;
     if (pick && /^\d+$/.test(pick)) letters = Math.min(MAX - 1, Math.max(3, Number(pick)));
-  } catch (e) { /* keep default */ }
+  } catch (e) { /* calibrate instead */ }
+  if (!letters) letters = calibrate();
   box.value = 'a'.repeat(letters) + '!';
 
   const start = performance.now();
