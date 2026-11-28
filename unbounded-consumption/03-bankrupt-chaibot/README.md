@@ -64,10 +64,8 @@ printf 'me\tYour prompt here\n' > mine.tsv     # \t is the Tab, \n ends the line
 bash bankrupt.sh mine.tsv
 ```
 
-**Round 1 · Biggest bill.** Make ChaiBot think and write as much as it can. Biggest bill wins:
+**The game · Biggest bill.** Make ChaiBot think and write as much as it can. Biggest bill wins:
 the most thinking + output tokens. At the ceiling it's a tie, so the prompt with fewer input tokens wins.
-
-**Round 2 · Fewest tokens to the ceiling.** Hit "hit the ceiling" with as few input tokens as you can.
 
 Keep your file to **10 prompts or fewer** per run: the free tier allows 15 requests a minute.
 
