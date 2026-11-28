@@ -1,0 +1,3 @@
+control	Is 91 a prime number? Answer in one line.
+trap	List every prime below 2000, then double-check each one.
+short	Hi

@@ -1,0 +1,6 @@
+# Lab output: results, raw answers, local Python setup
+runs/
+part1.jsonl
+*-failed.tsv
+.venv/
+out.json
