@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chai Company Prompt Filter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+/* VOICE live stage stunt, dressed as a real company's internal tool
+   IDEA Chai Company's prompt-filter console, like the status board in a chai shop
+   PICTURE a huge live server clock that visibly stops while the filter hangs, result printed under it
+   COLOUR milk-chai ground, tea-brown ink panel, saffron for the freeze, leaf green for "checked fast"
+   TYPE Archivo wide 800 for clock, title and result; Archivo for text; system mono for the prompt
+   LAYOUT phone: title, clock+result, prompt and buttons; above 820px clock left, prompt right */
+:root{--bg:#fbf3e7;--ink:#2b1a10;--panel:#fffdf9;--edge:#e3cfb5;--muted:#6b5240;--hot:#c2410c;--onink:#fbf3e7;--hoton:#ff9a52;--okon:#a5e3b0}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1b110b;--ink:#f6eadb;--panel:#26180f;--edge:#4a3324;--muted:#cdb59c;--hot:#ff8a3d;--onink:#1b110b;--hoton:#b8410e;--okon:#1d6a32}}
+:root[data-theme=dark]{--bg:#1b110b;--ink:#f6eadb;--panel:#26180f;--edge:#4a3324;--muted:#cdb59c;--hot:#ff8a3d;--onink:#1b110b;--hoton:#b8410e;--okon:#1d6a32}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:clip}
+.wrap{max-width:1080px;margin:0 auto;padding:18px max(16px,4vw) 36px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:6px 14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px}
+h1{margin:0;font-size:clamp(26px,6vw,40px);line-height:1.05;letter-spacing:-.02em;font-weight:800;font-stretch:110%;text-wrap:balance}
+.ver{font-size:14px;color:var(--muted)}
+.grid{display:grid;gap:18px;margin-top:18px}
+@media (min-width:820px){.grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:stretch}}
+.board{background:var(--ink);color:var(--onink);border-radius:16px;padding:18px 20px 22px;display:flex;flex-direction:column;gap:6px}
+.lbl{font-size:15px;opacity:.85}
+.time{font-weight:800;font-stretch:110%;font-variant-numeric:tabular-nums;font-size:clamp(50px,14.5vw,116px);line-height:1;letter-spacing:-.03em;white-space:nowrap}
+.status{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--okon);flex:none}
+.status.busy .dot{background:var(--hoton)}
+.res{margin-top:12px;padding-top:14px;border-top:1px solid color-mix(in srgb,var(--onink) 25%,transparent)}
+.big{font-weight:800;font-stretch:108%;font-size:clamp(30px,8.5vw,56px);line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--onink)}
+.big.hot{color:var(--hoton)}
+.big.ok{color:var(--okon)}
+.res p{margin:8px 0 0;font-size:16px}
+.card{background:var(--panel);border:1px solid var(--edge);border-radius:16px;padding:16px}
+label{display:block;font-weight:700;margin-bottom:6px}
+textarea{display:block;width:100%;font:16px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:12px;border:1.5px solid var(--edge);border-radius:10px;background:var(--bg);color:var(--ink);resize:vertical;min-height:76px;overflow-wrap:anywhere}
+textarea:focus-visible,button:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.meta{font-size:14px;color:var(--muted);margin-top:6px}
+.btns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:14px}
+button{font:inherit;font-weight:700;min-height:48px;border-radius:10px;border:1.5px solid var(--ink);background:var(--panel);color:var(--ink);padding:10px 12px;cursor:pointer;touch-action:manipulation}
+button:active{transform:translateY(1px)}
+button:disabled{opacity:.45;cursor:not-allowed}
+#check{grid-column:1/-1;background:var(--hot);border-color:var(--hot);color:#fff;font-size:19px;min-height:58px}
+.pair{display:flex;gap:10px}
+.pair button{flex:1}
+.warn{font-size:14px;color:var(--muted);margin:14px 0 0}
+details{margin-top:22px;border-top:1px solid var(--edge);padding-top:6px}
+summary{font-weight:700;cursor:pointer;min-height:44px;display:flex;align-items:center}
+details p{max-width:68ch}
+code{font:15px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.splits{display:grid;grid-template-columns:repeat(auto-fit,minmax(7.2em,1fr));gap:6px;margin:10px 0;max-width:640px}
+.splits span{border:1px solid var(--edge);border-radius:8px;padding:6px 8px;text-align:center;font:15px ui-monospace,Menlo,Consolas,monospace;background:var(--panel)}
+footer{margin-top:20px;font-size:14px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){button:active{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1><span data-brand>Chai Company</span> Prompt Filter</h1>
+    <span class="ver">v1 · blocks special characters</span>
+  </header>
+
+  <div class="grid">
+    <section class="board">
+      <div class="lbl"><span data-brand>Chai Company</span> server clock</div>
+      <div class="time" id="time">00:00.0</div>
+      <div class="status" id="status"><span class="dot"></span><span id="statusText">Running</span></div>
+      <div class="res" aria-live="polite">
+        <div class="big" id="big">Ready</div>
+        <p id="line">Wait for the countdown, then tap Check my prompt.</p>
+        <p id="ways"></p>
+      </div>
+    </section>
+
+    <section class="card">
+      <label for="prompt">Your prompt</label>
+      <textarea id="prompt" maxlength="32" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+      <div class="meta"><b id="len">0</b> characters, max 32</div>
+      <div class="btns">
+        <button id="check" type="button">Check my prompt</button>
+        <div class="pair">
+          <button id="plus" type="button">+1 character</button>
+          <button id="minus" type="button" aria-label="Remove one character">−1</button>
+        </div>
+        <button id="fixed" type="button">Use fixed filter</button>
+      </div>
+      <p class="warn">A check can freeze this tab for up to a minute. Close the tab to stop. Nothing is sent anywhere: the check runs on your phone.</p>
+    </section>
+  </div>
+
+  <details>
+    <summary>What just happened?</summary>
+    <p>Filter v1 uses the regex <code>^(\w+\s?)*$</code>, which means "words, each with an optional space after it". Your prompt ends with <code>!</code>, so the honest answer is no. But before the engine says no, it tries every way to split your letters into words, in case one of them works.</p>
+    <p><code>aaaa</code> has 3 gaps between letters. At each gap the engine can split or not split, so it has 2 × 2 × 2 = 8 ways:</p>
+    <div class="splits" id="splits"></div>
+    <p>With n letters it has 2<sup>n−1</sup> ways. 28 letters means 134,217,728 ways, and every extra letter doubles the work.</p>
+    <p>The fix is <code>^[\w\s]*$</code>: one flat set of allowed characters, read once from left to right, so it answers instantly. This bug class is ReDoS (CWE-1333). It happens in backtracking regex engines (JavaScript, Python, Java, PCRE). RE2-style engines (Go, Rust) do not backtrack.</p>
+  </details>
+
+  <footer>Breaking Models · LLM06 Part 1 · live demo page</footer>
+</div>
+<script>
+{
+  const BRAND = 'Chai Company';
+  const OLD = /^(\w+\s?)*$/;
+  const FIXED = /^[\w\s]*$/;
+  const MAX = 32;
+  const $ = (id) => document.getElementById(id);
+  const box = $('prompt');
+  const len = $('len');
+  const big = $('big');
+  const line = $('line');
+  const ways = $('ways');
+  const timeEl = $('time');
+  const status = $('status');
+  const statusText = $('statusText');
+  const buttons = ['check', 'plus', 'minus', 'fixed'].map($);
+
+  document.querySelectorAll('[data-brand]').forEach((el) => { el.textContent = BRAND; });
+  document.title = BRAND + ' Prompt Filter';
+
+  // Default: 27 letters + "!" (28 characters). Override with ?n=28 or #n28.
+  let letters = 27;
+  try {
+    const fromQuery = new URLSearchParams(location.search).get('n');
+    const fromHash = (location.hash.match(/^#n(\d+)$/) || [])[1];
+    const pick = fromHash || fromQuery;
+    if (pick && /^\d+$/.test(pick)) letters = Math.min(MAX - 1, Math.max(3, Number(pick)));
+  } catch (e) { /* keep default */ }
+  box.value = 'a'.repeat(letters) + '!';
+
+  const start = performance.now();
+  const pad = (v, w) => String(v).padStart(w, '0');
+  const fmt = (ms) => {
+    const tenths = Math.floor(ms / 100);
+    const min = Math.floor(tenths / 600);
+    const sec = Math.floor((tenths % 600) / 10);
+    return pad(min, 2) + ':' + pad(sec, 2) + '.' + (tenths % 10);
+  };
+  const tick = () => { timeEl.textContent = fmt(performance.now() - start); };
+  const clockTimer = setInterval(tick, 100);
+  tick();
+
+  const updateLen = () => { len.textContent = String(box.value.length); };
+  box.addEventListener('input', updateLen);
+  updateLen();
+
+  const setBusy = (busy) => {
+    status.classList.toggle('busy', busy);
+    statusText.textContent = busy ? 'Checking your prompt…' : 'Running';
+    buttons.forEach((b) => { b.disabled = busy; });
+  };
+
+  // Letters before a final special character, e.g. "aaaa!" gives 4
+  const runLength = (s) => {
+    const m = s.match(/^\w+/);
+    if (!m) return 0;
+    const rest = s.slice(m[0].length);
+    if (!rest || /^[\w\s]/.test(rest)) return 0;
+    return m[0].length;
+  };
+
+  const show = (s, allowed, sec, isOld) => {
+    const t = sec < 0.1 ? sec.toFixed(4) : sec.toFixed(1);
+    const verdict = allowed ? 'allowed' : 'blocked, because it has a special character';
+    if (isOld && sec >= 0.3) {
+      big.className = 'big hot';
+      big.textContent = 'Frozen for ' + t + ' s';
+      line.textContent = 'Your phone was frozen for ' + t + ' s while ' + BRAND + "'s filter checked your " + s.length + '-character prompt. Verdict: ' + verdict + '.';
+    } else {
+      big.className = 'big ok';
+      big.textContent = 'Checked in ' + t + ' s';
+      line.textContent = (isOld ? 'Filter v1' : 'The fixed filter') + ' answered in ' + t + ' s. Verdict: ' + verdict + '.';
+    }
+    const k = runLength(s);
+    if (isOld && k > 1) {
+      ways.textContent = 'To be sure, filter v1 tried every way to split ' + k + ' letters into words: 2^' + (k - 1) + ' = ' + (2 ** (k - 1)).toLocaleString('en-US') + ' ways. One more letter doubles it.';
+    } else if (!isOld) {
+      ways.textContent = 'Same verdict, no freeze. The fixed filter reads each character once.';
+    } else {
+      ways.textContent = '';
+    }
+  };
+
+  const run = (re, isOld) => {
+    const s = box.value;
+    setBusy(true);
+    big.className = 'big';
+    big.textContent = 'Checking…';
+    line.textContent = (isOld ? 'Filter v1' : 'The fixed filter') + ' is checking ' + s.length + ' characters.';
+    ways.textContent = '';
+    // Let the phone paint "Checking…" before the regex blocks the page
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => {
+      const t0 = performance.now();
+      const allowed = re.test(s);
+      const sec = (performance.now() - t0) / 1000;
+      tick();
+      setBusy(false);
+      show(s, allowed, sec, isOld);
+    }, 30)));
+  };
+
+  $('check').addEventListener('click', () => run(OLD, true));
+  $('fixed').addEventListener('click', () => run(FIXED, false));
+  $('plus').addEventListener('click', () => {
+    const s = box.value;
+    if (s.length >= MAX) return;
+    const i = s.search(/[^\w\s]$/);
+    box.value = i >= 0 ? s.slice(0, i) + 'a' + s.slice(i) : s + 'a';
+    updateLen();
+  });
+  $('minus').addEventListener('click', () => {
+    const s = box.value;
+    const i = s.search(/[^\w\s]$/);
+    box.value = i > 0 ? s.slice(0, i - 1) + s.slice(i) : s.slice(0, -1);
+    updateLen();
+  });
+
+  const SPLITS = ['aaaa', 'aaa|a', 'aa|aa', 'a|aaa', 'aa|a|a', 'a|aa|a', 'a|a|aa', 'a|a|a|a'];
+  $('splits').innerHTML = SPLITS.map((x) => '<span>' + x + '</span>').join('');
+
+  window.addEventListener('pagehide', () => clearInterval(clockTimer));
+}
+</script>
+</body>
+</html>
